@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobellaEventsForms", "MobellaEventsForms\MobellaEventsForms.csproj", "{5D705115-79EB-40AF-98EE-4BCB1C21BC36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobellaEventsForms.Tests", "MobellaEventsForms.Tests\MobellaEventsForms.Tests.csproj", "{EE907229-7253-443C-BDE5-4DACAF825F92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D705115-79EB-40AF-98EE-4BCB1C21BC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D705115-79EB-40AF-98EE-4BCB1C21BC36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D705115-79EB-40AF-98EE-4BCB1C21BC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D705115-79EB-40AF-98EE-4BCB1C21BC36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE907229-7253-443C-BDE5-4DACAF825F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE907229-7253-443C-BDE5-4DACAF825F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE907229-7253-443C-BDE5-4DACAF825F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE907229-7253-443C-BDE5-4DACAF825F92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
