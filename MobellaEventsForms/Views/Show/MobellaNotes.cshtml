@@ -1,0 +1,19 @@
+﻿@model MobellaEventsForms.ViewModels.MobellaNotesRequest
+
+@{
+    ViewBag.Title = "MobellaNotes";
+    Layout = "~/Views/Shared/_FormsLayout.cshtml";
+}
+
+<h2>Mobella's Notes</h2>
+
+<p>Any other exciting information?</p>
+
+@using (Html.BeginForm("MobellaNotes", "Show", new { clientId = Request.Params["clientId"] }))
+{
+    @Html.LabelFor(i => i.AdditionalNotes)
+    @Html.EditorFor(i => i.AdditionalNotes)
+
+    <input type="submit" value="Submit"/>
+    @Html.ActionLink("Back", "ScheduleConsultation", new { clientId = Request.Params["clientId"] })
+}

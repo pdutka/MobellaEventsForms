@@ -3,7 +3,9 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+
 using WebMatrix.WebData;
+
 using MobellaEventsForms.Models;
 
 namespace MobellaEventsForms.Filters
@@ -25,7 +27,7 @@ namespace MobellaEventsForms.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                System.Data.Entity.Database.SetInitializer<UsersContext>(null);
 
                 try
                 {

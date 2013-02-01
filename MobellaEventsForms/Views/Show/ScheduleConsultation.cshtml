@@ -1,0 +1,85 @@
+﻿@using MobellaEventsForms.Models
+@using MobellaEventsForms.ViewModels
+@model ScheduleConsultationRequest
+
+@{
+    ViewBag.Title = "Schedule Consultation";
+    Layout = "~/Views/Shared/_FormsLayout.cshtml";
+}
+
+@helper IsChecked(Schedule schedule)
+{
+    if ((Model != null && Model.When == schedule) ||
+        (Model == null && schedule == Schedule.Now))
+    {
+        @:Checked="Checked"
+    }
+}
+
+@helper IsChecked(DayOfWeek dayOfWeek)
+{
+    if (Model != null && Model.DaysOfTheWeek != null && Model.DaysOfTheWeek.Contains(dayOfWeek))
+    {
+        @:Checked="Checked"
+    }
+}
+
+@helper IsChecked(TimeOfDay timeOfDay)
+{
+    if (Model != null && Model.TimesOfTheDay != null && Model.TimesOfTheDay.Contains(timeOfDay))
+    {
+        @:Checked="Checked"
+    }
+}
+
+<h2>Schedule Consultation</h2>
+
+<p>We would love to get to know you better! Would you like to schedule your free initial consultation?</p>
+
+@using (Html.BeginForm("ScheduleConsultation", "Show", new { clientId = Request.Params["clientId"] }))
+{
+    @Html.ValidationSummary(true)
+
+    <input type="radio" name="When" value="Now" id="Now" @IsChecked(Schedule.Now)/>
+    <label for="Now">Yes, let's schedule it now!</label>
+    @Html.LabelFor(i => i.OnDateTime)
+    @Html.EditorFor(i => i.OnDateTime)
+    @Html.ValidationMessageFor(i => i.OnDateTime)
+
+    <input type="radio" name="When" value="Later" id="Later" @IsChecked(Schedule.Later)/>
+    <label for="Later">Yes, I'm available on...</label>
+
+    <label for="Monday">Mon</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Monday" id="Monday" @IsChecked(DayOfWeek.Monday)/>
+    <label for="Tuesday">Tue</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Tuesday" id="Tuesday" @IsChecked(DayOfWeek.Tuesday)/>
+    <label for="Wednesday">Wed</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Wednesday" id="Wednesday" @IsChecked(DayOfWeek.Wednesday)/>
+    <label for="Thursday">Thu</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Thursday" id="Thursday" @IsChecked(DayOfWeek.Thursday)/>
+    <label for="Friday">Fri</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Friday" id="Friday" @IsChecked(DayOfWeek.Friday)/>
+    <label for="Saturday">Sat</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Saturday" id="Saturday" @IsChecked(DayOfWeek.Saturday)/>
+    <label for="Sunday">Sun</label>
+    <input type="checkbox" name="DaysOfTheWeek" value="Sunday" id="Sunday" @IsChecked(DayOfWeek.Sunday)/>
+    <button type="button">Weekdays</button>
+    <button type="button">Weekends</button>
+
+    <label for="Morning">Morning</label>
+    <input type="checkbox" name="TimesOfTheDay" value="Morning" id="Morning" @IsChecked(TimeOfDay.Morning)/>
+    <label for="Afternoon">Afternoon</label>
+    <input type="checkbox" name="TimesOfTheDay" value="Afternoon" id="Afternoon" @IsChecked(TimeOfDay.Afternoon)/>
+    <label for="Evening">Evening</label>
+    <input type="checkbox" name="TimesOfTheDay" value="Evening" id="Evening" @IsChecked(TimeOfDay.Evening)/>
+    <button type="button">Any Time</button>
+
+    @Html.LabelFor(x => x.AdditionalPreferences)
+    @Html.EditorFor(x => x.AdditionalPreferences)
+
+    <input type="radio" name="When" value="Never" id="Never" @IsChecked(Schedule.Never)/>
+    <label for="Never">No, I'm not ready yet.</label>
+
+    <input type="submit" value="Submit"/>
+    @Html.ActionLink("Back", "Form", new { clientId = Request.Params["clientId"] })
+}

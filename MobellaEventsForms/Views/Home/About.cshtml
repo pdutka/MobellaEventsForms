@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<MobellaEventsForms.Models.ClientInfoModel>
+
+@{
     ViewBag.Title = "About";
 }
 
@@ -8,17 +10,16 @@
 </hgroup>
 
 <article>
-    <p>
-        Use this area to provide additional information.
-    </p>
-
-    <p>
-        Use this area to provide additional information.
-    </p>
-
-    <p>
-        Use this area to provide additional information.
-    </p>
+    @foreach (var clientInfo in Model)
+    {
+        <p>
+            @Html.DisplayFor(client => clientInfo)
+            @Html.DisplayFor(client => clientInfo.Interests)
+            @Html.DisplayFor(client => clientInfo.ScheduleConsultation)
+            @Html.DisplayFor(client => clientInfo.ScheduleConsultation.DaysOfTheWeek)
+            @Html.DisplayFor(client => clientInfo.ScheduleConsultation.TimesOfTheDay)
+        </p>
+    }
 </article>
 
 <aside>

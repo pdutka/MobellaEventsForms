@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "ThanksForVisiting";
+    Layout = "~/Views/Shared/_FormsLayout.cshtml";
+}
+
+<h2>You're done!</h2>
+
+<p>Thanks for stopping by and letting us get to know you more! You'll hear from us very soon.</p>
+
+@Html.ActionLink("Next...", "MobellaNotes", new { clientId = Request.Params["clientId"] })

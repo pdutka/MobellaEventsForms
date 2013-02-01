@@ -7,11 +7,6 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
-        <style>
-            .display-field {
-                float: right;
-            }
-        </style>
     </head>
     <body>
         <header>
@@ -48,6 +43,6 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+        @RenderSection("scripts", false)
     </body>
 </html>
