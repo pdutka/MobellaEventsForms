@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.AccessControl;
 using System.Xml.Serialization;
 
 using MobellaEventsForms.Models;
@@ -11,14 +12,20 @@ namespace MobellaEventsForms.Database
     {
         public List<ClientInfoModel> ClientInfoModels { get; set; }
 
-        private const string FilePath = @"Database\FormsDb.xml";
+        private const string FileSubDirectory = @"Database\";
+        private const string FileName = @"FormsDb.xml";
 
         private readonly string _fullFilePath;
         private readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(ClientInfoModel[]));
 
         public FormsDb(string serverRootPath)
         {
-            _fullFilePath = Path.Combine(serverRootPath, FilePath);
+            var fileDirectory = Path.Combine(serverRootPath, FileSubDirectory);
+            if (!Directory.Exists(fileDirectory))
+            {
+                Directory.CreateDirectory(fileDirectory);
+            }
+            _fullFilePath = Path.Combine(fileDirectory, FileName);
             using (var fileStream = new FileStream(_fullFilePath, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 if (fileStream.Length > 0)
