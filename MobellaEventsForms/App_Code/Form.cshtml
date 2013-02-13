@@ -1,0 +1,43 @@
+﻿@using System.Web.Mvc
+@helper Checkbox(UrlHelper url, string name, string labelText)
+{
+    <input type="hidden" value="false" name="@name" />
+    <input type="checkbox" name="@name" id="@name" value="true" />
+    <label for="@name" class="checkbox-label">
+        <table>
+            <tr>
+                <td class="checkbox">
+                    <img src="@url.Content("~/Images/checkmark.png")" alt="check" />
+                </td>
+                <td class="label">
+                    <span>@labelText</span>
+                </td>
+            </tr>
+        </table>
+    </label>
+}
+
+@helper Radio(UrlHelper url, string name, string value, string labelText)
+{
+    <input type="radio" name="@name" id="@value" value="@value" data-bind="checked: checkedOption"/>
+    <label for="@value" class="checkbox-label">
+        <table>
+            <tr>
+                <td class="checkbox">
+                    <img src="@url.Content("~/Images/checkmark.png")" alt="check" />
+                </td>
+                <td class="label">
+                    <span>@labelText</span>
+                </td>
+            </tr>
+        </table>
+    </label>
+}
+
+@helper Toggle(string name, string value, string labelText, HelperResult isChecked)
+{
+    <input type="checkbox" class="toggle" name="@name" id="@value" value="@value" @isChecked data-bind="checked: @value"/>
+    <label for="@value">
+        <span>@labelText</span>
+    </label>
+}

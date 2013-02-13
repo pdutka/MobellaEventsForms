@@ -1,0 +1,69 @@
+﻿@model MobellaEventsForms.ViewModels.AboutUsRequest
+
+@{
+    Layout = "~/Views/Shared/_FormsLayout.cshtml";
+    ViewBag.Title = "AboutUs";
+    ViewBag.Step = 2;
+}
+
+@section header
+{
+    @Html.Partial("_WizardHeader")
+}
+
+@using (Html.BeginForm("AboutUs", "Show",
+    new { clientId = Request.Params["clientId"] },
+    FormMethod.Post,
+    new { id = "AboutUsForm" }))
+{
+    <div class="fieldset">
+        <p>Services of Interest</p>
+        <table>
+            <tr>
+                <td>
+                    @Form.Checkbox(Url, "GettingStarted", "Getting Started")
+                </td>
+                <td>
+                    @Form.Checkbox(Url, "WrappingItUp", "Wrapping It Up")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Form.Checkbox(Url, "DayOfCoordination", "Day Of")
+                </td>
+                <td>
+                    @Form.Checkbox(Url, "LiteCoordination", "Lite Service")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Form.Checkbox(Url, "FullServiceCoordination", "Full Service")
+                </td>
+                <td>
+                    @Form.Checkbox(Url, "CandyBuffet", "Candy Buffet")
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="fieldset">
+        <p>Price Sheet</p>
+        @Form.Checkbox(Url, "PriceList", "Request our price list")
+    </div>
+
+    <div class="fieldset">
+        <p>Newletter</p>
+        @Form.Checkbox(Url, "SignUp", "Sign up for our newsletter")
+    </div>
+
+    <div class="fieldset">
+        @Html.LabelFor(i => i.AdditionalQuestions)
+        <textarea name="AdditionalQuestions" rows="4">@Model.AdditionalQuestions</textarea>
+    </div>
+}
+
+@section FormButtons
+{
+    <input type="submit" form="AboutUsForm" value="Next"/>
+    <a type="button" href="@Url.Action("AboutYou", new {clientId = Request.Params["clientId"]})"><span>Back</span></a>
+}

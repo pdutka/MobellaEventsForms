@@ -1,0 +1,87 @@
+﻿@model MobellaEventsForms.ViewModels.AboutYouRequest
+
+@{
+    Layout = "~/Views/Shared/_FormsLayout.cshtml";
+    ViewBag.Title = "About You";
+    ViewBag.Step = 1;
+}
+
+@section header
+{
+    @Html.Partial("_WizardHeader")
+}
+
+@using (Html.BeginForm("AboutYou", "Show",
+    new { clientId = Request.Params["clientId"] },
+    FormMethod.Post,
+    new { id = "AboutYouForm" }))
+{
+    <div class="fieldset">
+        @Html.LabelFor(i => i.PrimaryContact)
+        <table>
+            <tr>
+                <td class="dropdown-cell">
+                    @Html.DropDownListFor(i => i.PrimaryContactTitle, new SelectList(Enum.GetNames(typeof(MobellaEventsForms.Models.Title)), MobellaEventsForms.Models.Title.Bride.ToString()))
+                </td>
+                <td>
+                    @Html.EditorFor(i => i.PrimaryContact)
+                    @Html.ValidationMessageFor(i => i.PrimaryContact)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="fieldset">
+        @Html.LabelFor(i => i.Fiance)
+        <table>
+            <tr>
+                <td class="dropdown-cell">
+                    @Html.DropDownListFor(i => i.FianceTitle, new SelectList(Enum.GetNames(typeof(MobellaEventsForms.Models.Title)), MobellaEventsForms.Models.Title.Groom.ToString()))
+                </td>
+                <td>
+                    @Html.EditorFor(i => i.Fiance)
+                    @Html.ValidationMessageFor(i => i.Fiance)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="fieldset">
+        @Html.LabelFor(i => i.Phone)
+        @Html.EditorFor(i => i.Phone)
+        @Html.ValidationMessageFor(i => i.Phone)
+    </div>
+
+    <div class="fieldset">
+        @Html.LabelFor(i => i.Email)
+        @Html.EditorFor(i => i.Email)
+        @Html.ValidationMessageFor(i => i.Email)
+    </div>
+
+    <div class="fieldset">
+        <table>
+            <tr>
+                <td class="left-column">
+                    @Html.LabelFor(i => i.WeddingDate)
+                    @Html.EditorFor(i => i.WeddingDate)
+                </td>
+                <td class="right-column">
+                    @Html.LabelFor(i => i.NumberOfGuests)
+                    @Html.EditorFor(i => i.NumberOfGuests)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="fieldset">
+        @Html.LabelFor(i => i.WeddingLocations)
+        @Html.EditorFor(i => i.WeddingLocations)
+        @Html.ValidationMessageFor(i => i.WeddingLocations)
+    </div>
+}
+
+@section FormButtons
+{
+    <input type="submit" form="AboutYouForm" value="Next"/>
+    <a type="button" href="@Url.Action("Index")"><span>Cancel</span></a>
+}

@@ -1,0 +1,38 @@
+﻿@helper IsStepActive(int step)
+{
+    if (ViewBag.Step == null || ViewBag.Step < step)
+    {
+        return;
+    }
+    @:active-step
+    @:active-step-@ViewBag.Step
+}
+
+<header class="wizard">
+    <img src="@Url.Content("~/Images/mobellaLogo.jpg")" alt="Mobella Events Logo" width="150" height="94"/>
+    <table>
+        <tr>
+            <td class="circle left-circle @IsStepActive(1)">
+                <div class="circle-step">
+                    <div>
+                        <span>1</span>
+                    </div>
+                </div>
+            </td>
+            <td class="circle middle-circle @IsStepActive(2)">
+                <div class="circle-step">
+                    <div>
+                        <span>2</span>
+                    </div>
+                </div>
+            </td>
+            <td class="circle right-circle @IsStepActive(3)">
+                <div class="circle-step">
+                    <div>
+                        <span>3</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</header>

@@ -25,12 +25,12 @@ namespace MobellaEventsForms.Controllers
         }
 
         [HttpGet]
-        public ActionResult Form(int? clientId)
+        public ActionResult AboutYou(int? clientId)
         {
             var client = _db.ClientInfoModels.SingleOrDefault(x => x.Id == clientId);
             if (client != null)
             {
-                var clientInfo = new ClientInfoRequest
+                var aboutYou = new AboutYouRequest
                     {
                         PrimaryContactTitle = client.PrimaryContactTitle,
                         PrimaryContact = client.PrimaryContact,
@@ -41,25 +41,16 @@ namespace MobellaEventsForms.Controllers
                         WeddingDate = client.WeddingDate,
                         WeddingLocations = client.WeddingLocations,
                         NumberOfGuests = client.NumberOfGuests,
-                        GettingStarted = client.Interests.GettingStarted,
-                        WrappingItUp = client.Interests.WrappingItUp,
-                        DayOfCoordination = client.Interests.DayOfCoordination,
-                        LiteCoordination = client.Interests.LiteCoordination,
-                        FullServiceCoordination = client.Interests.FullServiceCoordination,
-                        CandyBuffet = client.Interests.CandyBuffet,
-                        SignUp = client.Interests.SignUp,
-                        PriceList = client.Interests.PriceList,
-                        AdditionalQuestions = client.Interests.AdditionalQuestions,
                     };
 
-                return View(clientInfo);
+                return View(aboutYou);
             }
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Form(int? clientId, ClientInfoRequest clientInfo)
+        public ActionResult AboutYou(int? clientId, AboutYouRequest aboutYou)
         {
             if (ModelState.IsValid)
             {
@@ -70,31 +61,75 @@ namespace MobellaEventsForms.Controllers
                     _db.ClientInfoModels.Add(client);
                 }
                 clientId = client.Id;
-                client.PrimaryContactTitle = clientInfo.PrimaryContactTitle;
-                client.PrimaryContact = clientInfo.PrimaryContact;
-                client.FianceTitle = clientInfo.FianceTitle;
-                client.Fiance = clientInfo.Fiance;
-                client.Phone = clientInfo.Phone;
-                client.Email = clientInfo.Email;
-                client.WeddingDate = clientInfo.WeddingDate;
-                client.WeddingLocations = clientInfo.WeddingLocations;
-                client.NumberOfGuests = clientInfo.NumberOfGuests;
-                client.Interests = client.Interests ?? new ClientInterestsModel();
-                client.Interests.GettingStarted = clientInfo.GettingStarted;
-                client.Interests.WrappingItUp = clientInfo.WrappingItUp;
-                client.Interests.DayOfCoordination = clientInfo.DayOfCoordination;
-                client.Interests.LiteCoordination = clientInfo.LiteCoordination;
-                client.Interests.FullServiceCoordination = clientInfo.FullServiceCoordination;
-                client.Interests.CandyBuffet = clientInfo.CandyBuffet;
-                client.Interests.SignUp = clientInfo.SignUp;
-                client.Interests.PriceList = clientInfo.PriceList;
-                client.Interests.AdditionalQuestions = clientInfo.AdditionalQuestions;
+                client.PrimaryContactTitle = aboutYou.PrimaryContactTitle;
+                client.PrimaryContact = aboutYou.PrimaryContact;
+                client.FianceTitle = aboutYou.FianceTitle;
+                client.Fiance = aboutYou.Fiance;
+                client.Phone = aboutYou.Phone;
+                client.Email = aboutYou.Email;
+                client.WeddingDate = aboutYou.WeddingDate;
+                client.WeddingLocations = aboutYou.WeddingLocations;
+                client.NumberOfGuests = aboutYou.NumberOfGuests;
                 _db.SaveChanges();
 
                 return RedirectToAction("ScheduleConsultation", new { clientId = clientId.Value });
             }
 
-            return View(clientInfo);
+            return View(aboutYou);
+        }
+
+        [HttpGet]
+        public ActionResult AboutUs(int clientId)
+        {
+            var client = _db.ClientInfoModels.SingleOrDefault(x => x.Id == clientId);
+            if (client != null)
+            {
+                var aboutUs = new AboutUsRequest
+                {
+                    GettingStarted = client.Interests.GettingStarted,
+                    WrappingItUp = client.Interests.WrappingItUp,
+                    DayOfCoordination = client.Interests.DayOfCoordination,
+                    LiteCoordination = client.Interests.LiteCoordination,
+                    FullServiceCoordination = client.Interests.FullServiceCoordination,
+                    CandyBuffet = client.Interests.CandyBuffet,
+                    SignUp = client.Interests.SignUp,
+                    PriceList = client.Interests.PriceList,
+                    AdditionalQuestions = client.Interests.AdditionalQuestions,
+                };
+
+                return View(aboutUs);
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AboutUs(int clientId, AboutUsRequest aboutUs)
+        {
+            if (ModelState.IsValid)
+            {
+                var client = _db.ClientInfoModels.SingleOrDefault(x => x.Id == clientId);
+                if (client != null)
+                {
+                    client.Interests = new ClientInterestsModel
+                        {
+                            GettingStarted = aboutUs.GettingStarted,
+                            WrappingItUp = aboutUs.WrappingItUp,
+                            DayOfCoordination = aboutUs.DayOfCoordination,
+                            LiteCoordination = aboutUs.LiteCoordination,
+                            FullServiceCoordination = aboutUs.FullServiceCoordination,
+                            CandyBuffet = aboutUs.CandyBuffet,
+                            SignUp = aboutUs.SignUp,
+                            PriceList = aboutUs.PriceList,
+                            AdditionalQuestions = aboutUs.AdditionalQuestions
+                        };
+                    _db.SaveChanges();
+
+                    return RedirectToAction("ScheduleConsultation", new { clientId });
+                }
+            }
+
+            return View(aboutUs);
         }
 
         [HttpGet]
@@ -146,6 +181,25 @@ namespace MobellaEventsForms.Controllers
         [HttpGet]
         public ActionResult ThanksForVisiting(int clientId)
         {
+            var client = _db.ClientInfoModels.SingleOrDefault(x => x.Id == clientId);
+            if (client != null)
+            {
+                var aboutYou = new AboutYouRequest
+                {
+                    PrimaryContactTitle = client.PrimaryContactTitle,
+                    PrimaryContact = client.PrimaryContact,
+                    FianceTitle = client.FianceTitle,
+                    Fiance = client.Fiance,
+                    Phone = client.Phone,
+                    Email = client.Email,
+                    WeddingDate = client.WeddingDate,
+                    WeddingLocations = client.WeddingLocations,
+                    NumberOfGuests = client.NumberOfGuests,
+                };
+
+                return View(aboutYou);
+            }
+
             return View();
         }
 

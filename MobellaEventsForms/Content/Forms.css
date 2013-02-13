@@ -1,0 +1,382 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Questrial);
+
+/* Add to Global CSS */
+input,
+textarea {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; /* Firefox */
+    -webkit-box-sizing: border-box; /* Safari */
+}
+
+/* Start... */
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(242, 242, 242);
+}
+
+#body {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+#header {
+    height: 1%;
+}
+
+.body-section {
+    display: table-row;
+}
+
+p {
+    margin: 0;
+}
+
+p,
+a,
+input,
+select,
+label,
+button,
+h1,
+input[type=submit] {
+    font-family: 'Questrial', sans-serif;
+}
+
+header {
+    padding: 10px;
+    background-color: #FDFDFD;
+    text-align: center;
+    border-bottom: 5px solid rgb(13, 145, 198);
+}
+
+label span {
+    display: inline-block;
+}
+
+#boder {
+    display: table;
+    margin: 0 auto;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    max-width: 726px;
+}
+
+#boder div {
+    display: table-row;
+}
+
+a[type=button] {
+    text-decoration: none;
+    text-align: center;
+}
+
+.wizard {
+    background-image: url("../Images/mobella-lightgrey-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 40px;
+    background-position: bottom;
+    background-color: #FDFDFD;
+    border: none;
+    text-align: center;
+}
+
+.wizard table {
+    margin: 0 auto;
+}
+
+/*.wizard tr {
+    display: inline-table; /* Chrome Bug Fix /
+    background-image: url("../Images/mobella-blue-bg.jpg");
+}*/
+
+.circle {
+    background-image: url("../Images/mobella-grey-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 50% 35%;
+    background-position: center;
+}
+
+/* Helpers */
+
+.splash {
+    margin: auto;
+    height: 100%;
+    text-align: center;
+}
+
+.splash tr {
+    height: 50%;
+}
+
+.splash .title-cell {
+    vertical-align: bottom;
+}
+
+.splash .button-cell {
+    vertical-align: top;
+}
+
+.title-cell p {
+    font-size: 2.5em;
+    margin-bottom: 10%;
+}
+
+.button-cell div {
+    margin-top: 5%;
+}
+
+.button-cell a {
+    background-color: rgb(13, 145, 198);
+    color: white;
+    padding: 10px 40px;
+    font-size: 2em;
+}
+
+.circle-steps {
+    display: table;
+    margin: 0 auto;
+}
+.circle-step {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border: 5px solid rgb(166, 166, 166);
+    border-radius: 50%;
+    text-align: center;
+    font-family: 'Questrial', sans-serif;
+    font-size: 2.5em;
+    color: rgb(166, 166, 166);
+    font-weight: bold;
+}
+.circle-step div {
+    display: table;
+    margin: auto;
+    height: 100%;
+}
+.circle-step span {
+    display: table-cell;
+    vertical-align: middle;
+}
+.left-circle {
+    background-position: right;
+}
+.middle-circle {
+    background-size: 100% 35%;
+}
+.right-circle {
+    background-position: left;
+}
+.left-circle .circle-step {
+    margin-right: 40px;
+}
+.right-circle .circle-step {
+    margin-left: 40px;
+}
+.active-step .circle-step {
+    border-color: rgb(13, 145, 198);
+    color: rgb(64, 64, 64);
+}
+.active-step-2,
+.active-step-3 {
+    background-image: url("../Images/mobella-blue-bg.jpg");
+}
+.active-step-2.middle-circle {
+    background-image: url("../Images/mobella-blue-bg.jpg"), url("../Images/mobella-grey-bg.jpg");
+    background-size: 50% 35%;
+    background-position: left, right;
+}
+.description {
+    margin-bottom: 20px;
+}
+
+/* Forms */
+.form {
+    width: 100%;
+    height: 100%;
+}
+.form-cell {
+    vertical-align: top;
+}
+.form-cell,
+.form-buttons-cell {
+    padding: 10px;
+}
+
+.form-buttons-cell {
+    height: 1%;
+}
+
+form table {
+    width: 100%;
+}
+
+td:first-child label {
+    margin-right: 2px;
+}
+
+label {
+    display: block;
+    margin-bottom: 2px;
+}
+
+input,
+textarea {
+    width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    background-color: white;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+input[type=checkbox],
+input[type=radio] {
+    display: none;
+}
+
+input[type=submit] {
+    float: right;
+    background-color: rgb(119, 147, 60);
+    border: 1px solid rgb(119, 147, 60);
+    color: white;
+    padding: 0;
+    width: 86px;
+    height: 34px;
+}
+
+.checkbox-label {
+    display: table;
+    width: 100%;
+    margin: 0;
+    /*border-collapse: separate;
+    border-spacing: 0 3px;*/
+}
+
+.checkbox {
+    width: 1%;
+    vertical-align: middle;
+}
+
+.checkbox img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+    padding: 0;
+    background-color: white;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.label {
+    padding: 0;
+}
+
+.toggle + label span {
+    padding: 6px 0;
+}
+.toggle + label span,
+.label span {
+    display: block;
+    background-color: white;
+    border: 1px solid rgb(217, 217, 217);
+    color: rgb(89, 89, 89);
+    height: 100%;
+    font-size: 100%;
+    line-height: normal;
+}
+.label span {
+    padding: 7px;
+}
+
+input[type=checkbox]:checked + .checkbox-label .label span,
+input[type=radio]:checked + .checkbox-label .label span,
+input[type=checkbox]:checked + .checkbox-label .checkbox img,
+input[type=radio]:checked + .checkbox-label .checkbox img,
+.toggle:checked + label span {
+    color: white;
+    background-color: rgb(13, 145, 198);
+    border: 1px solid rgb(13, 145, 198);
+}
+
+.buttonset a[type=button] {
+    display: table;
+    background-color: rgb(149, 55, 53);
+    border: 1px solid rgb(149, 55, 53);
+    width: 84px;
+    height: 32px;
+
+    vertical-align: middle;
+    color: white;
+}
+
+.buttonset a[type=button] span {
+    display: table-cell;
+    vertical-align: middle;
+    font-family: 'Questrial', sans-serif;
+    color: white;
+}
+
+.fieldset {
+    margin-bottom: 15px;
+}
+
+.left-column {
+    padding-right: 5px;
+}
+
+.right-column {
+    padding-left: 5px;
+}
+
+.dropdown-cell {
+    width: 74px;
+}
+
+.toggle-pane {
+    border: 5px solid rgb(13, 145, 198);
+    border-top: none;
+    margin-top: 4px;
+    padding: 10px;
+    padding-top: 5px;
+}
+
+.toggle-pane-section {
+    margin-bottom: 15px;
+}
+
+#Weekdays + label,
+#Weekends + label {
+    display: inline-block;
+}
+#Weekdays + label span,
+#Weekends + label span {
+    padding: 6px 9px;
+}
+
+.day-of-week {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 2px 0;
+    text-align: center;
+}
+.day-of-week label {
+    width: 100%;
+}
+
+.time-of-day {
+    display: inline-block;
+    width: 32.4%;
+    text-align: center;
+}
+.time-of-day label {
+    width: 100%;
+}

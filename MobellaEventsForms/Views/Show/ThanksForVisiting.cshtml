@@ -1,10 +1,21 @@
-﻿@{
-    ViewBag.Title = "ThanksForVisiting";
+﻿@model MobellaEventsForms.ViewModels.AboutYouRequest
+
+@{
     Layout = "~/Views/Shared/_FormsLayout.cshtml";
+    ViewBag.Title = "ThanksForVisiting";
 }
 
-<h2>You're done!</h2>
+@section header
+{
+    @Html.Partial("_Header")
+}
 
-<p>Thanks for stopping by and letting us get to know you more! You'll hear from us very soon.</p>
+@helper FirstName(string fullName) {
+    @fullName.Split(" ".ToArray(), StringSplitOptions.RemoveEmptyEntries)[0]
+}
 
+<p>Thanks for stopping by @FirstName(Model.PrimaryContact) and letting us get to know more about you and @FirstName(Model.Fiance)!</p>
+<br/>
+<p>You'll hear from us very soon. Happy planning!</p>
+<br/>
 @Html.ActionLink("Next...", "MobellaNotes", new { clientId = Request.Params["clientId"] })

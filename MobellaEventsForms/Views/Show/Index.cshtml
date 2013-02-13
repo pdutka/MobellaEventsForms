@@ -1,10 +1,24 @@
 ﻿@{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_FormsLayout.cshtml";
+    ViewBag.Title = "Index";
 }
 
-<h1>Planning & Coordination</h1>
+@section header
+{
+    @Html.Partial("_Header")
+}
 
-<h2>Want more info?</h2>
-
-@Html.ActionLink("Yes, please!", "Form", null, new { @class = "button" })
+<table class="splash">
+    <tr>
+        <td class="title-cell">
+            <p>Want more info?</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="button-cell">
+            <div>
+                @Html.ActionLink("Yes, please!", "AboutYou", null, new { type = "button" })
+            </div>
+        </td>
+    </tr>
+</table>

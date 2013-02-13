@@ -3,17 +3,72 @@
 @model ScheduleConsultationRequest
 
 @{
-    ViewBag.Title = "Schedule Consultation";
     Layout = "~/Views/Shared/_FormsLayout.cshtml";
+    ViewBag.Title = "Schedule Consultation";
+    ViewBag.Step = 3;
 }
 
-@helper IsChecked(Schedule schedule)
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
+            function appViewModel() {
+                var self = this;
+                self.checkedOption = ko.observable('@GetDefaultSchedule()');
+
+                self.Monday = ko.observable(false);
+                self.Tuesday = ko.observable(false);
+                self.Wednesday = ko.observable(false);
+                self.Thursday = ko.observable(false);
+                self.Friday = ko.observable(false);
+                self.Saturday = ko.observable(false);
+                self.Sunday = ko.observable(false);
+
+                self.Weekdays = ko.computed({
+                    read: function () {
+                        return self.Monday() &&
+                            self.Tuesday() &&
+                            self.Wednesday() &&
+                            self.Thursday() &&
+                            self.Friday();
+                    },
+                    write: function (value) {
+                        self.Monday(value);
+                        self.Tuesday(value);
+                        self.Wednesday(value);
+                        self.Thursday(value);
+                        self.Friday(value);
+                    },
+                    owner: self
+                });
+
+                self.Weekends = ko.computed({
+                    read: function () {
+                        return self.Saturday() &&
+                            self.Sunday();
+                    },
+                    write: function (value) {
+                        self.Saturday(value);
+                        self.Sunday(value);
+                    },
+                    owner: self
+                });
+            }
+
+            // Activates knockout.js
+            ko.applyBindings(new appViewModel());
+        });
+    </script>
+}
+
+@section header
 {
-    if ((Model != null && Model.When == schedule) ||
-        (Model == null && schedule == Schedule.Now))
-    {
-        @:Checked="Checked"
-    }
+    @Html.Partial("_WizardHeader")
+}
+
+@helper GetDefaultSchedule()
+{
+    @((Model != null ? Model.When : Schedule.Now).ToString())
 }
 
 @helper IsChecked(DayOfWeek dayOfWeek)
@@ -32,54 +87,89 @@
     }
 }
 
-<h2>Schedule Consultation</h2>
+@helper Toggle(Schedule when, string label)
+{
+    @Form.Radio(Url, "When", when.ToString(), label)
+}
 
-<p>We would love to get to know you better! Would you like to schedule your free initial consultation?</p>
+@helper Toggle(DayOfWeek day)
+{
+    var dayString = day.ToString();
+    <div class="day-of-week">
+        @Form.Toggle("DaysOfTheWeek", dayString, dayString.Substring(0, 1), IsChecked(day))
+    </div>
+}
 
-@using (Html.BeginForm("ScheduleConsultation", "Show", new { clientId = Request.Params["clientId"] }))
+@helper Toggle(TimeOfDay time)
+{
+    var timeString = time.ToString();
+    <div class="time-of-day">
+        @Form.Toggle("TimesOfTheDay", timeString, timeString, IsChecked(time))
+    </div>
+}
+
+<p class="description">Would you like to schedule your free initial consultation? We would love to get to know you better!</p>
+<p data-bind="text: checkedOption"></p>
+
+@using (Html.BeginForm("ScheduleConsultation", "Show",
+    new { clientId = Request.Params["clientId"] },
+    FormMethod.Post,
+    new { id = "ScheduleConsultationForm" }))
 {
     @Html.ValidationSummary(true)
 
-    <input type="radio" name="When" value="Now" id="Now" @IsChecked(Schedule.Now)/>
-    <label for="Now">Yes, let's schedule it now!</label>
-    @Html.LabelFor(i => i.OnDateTime)
-    @Html.EditorFor(i => i.OnDateTime)
-    @Html.ValidationMessageFor(i => i.OnDateTime)
+    <div class="fieldset">
+        @Toggle(Schedule.Now, "Yes, let's schedule it now!")
 
-    <input type="radio" name="When" value="Later" id="Later" @IsChecked(Schedule.Later)/>
-    <label for="Later">Yes, I'm available on...</label>
+        <div class="toggle-pane" data-bind="visible: checkedOption() == '@Schedule.Now.ToString()'">
+            @Html.LabelFor(i => i.OnDateTime)
+            @Html.EditorFor(i => i.OnDateTime)
+            @Html.ValidationMessageFor(i => i.OnDateTime)
+        </div>
+    </div>
 
-    <label for="Monday">Mon</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Monday" id="Monday" @IsChecked(DayOfWeek.Monday)/>
-    <label for="Tuesday">Tue</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Tuesday" id="Tuesday" @IsChecked(DayOfWeek.Tuesday)/>
-    <label for="Wednesday">Wed</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Wednesday" id="Wednesday" @IsChecked(DayOfWeek.Wednesday)/>
-    <label for="Thursday">Thu</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Thursday" id="Thursday" @IsChecked(DayOfWeek.Thursday)/>
-    <label for="Friday">Fri</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Friday" id="Friday" @IsChecked(DayOfWeek.Friday)/>
-    <label for="Saturday">Sat</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Saturday" id="Saturday" @IsChecked(DayOfWeek.Saturday)/>
-    <label for="Sunday">Sun</label>
-    <input type="checkbox" name="DaysOfTheWeek" value="Sunday" id="Sunday" @IsChecked(DayOfWeek.Sunday)/>
-    <button type="button">Weekdays</button>
-    <button type="button">Weekends</button>
+    <div class="fieldset">
+        @Toggle(Schedule.Later, "Yes, I'm available on...")
 
-    <label for="Morning">Morning</label>
-    <input type="checkbox" name="TimesOfTheDay" value="Morning" id="Morning" @IsChecked(TimeOfDay.Morning)/>
-    <label for="Afternoon">Afternoon</label>
-    <input type="checkbox" name="TimesOfTheDay" value="Afternoon" id="Afternoon" @IsChecked(TimeOfDay.Afternoon)/>
-    <label for="Evening">Evening</label>
-    <input type="checkbox" name="TimesOfTheDay" value="Evening" id="Evening" @IsChecked(TimeOfDay.Evening)/>
-    <button type="button">Any Time</button>
+        <div class="toggle-pane" data-bind="visible: checkedOption() == '@Schedule.Later.ToString()'">
+            <div class="toggle-pane-section">
+                <p>Days of the Week</p>
+                @foreach (var dayOfWeek in Enum.GetValues(typeof(DayOfWeek)))
+                {
+                    @Toggle((DayOfWeek)dayOfWeek)
+                }
+                <div class="days-of-week">
+                    <input type="checkbox" class="toggle" id="Weekdays" data-bind="checked: Weekdays"/>
+                    <label for="Weekdays">
+                        <span>Weekdays</span>
+                    </label>
+                    <input type="checkbox" class="toggle" id="Weekends" data-bind="checked: Weekends"/>
+                    <label for="Weekends">
+                        <span>Weekends</span>
+                    </label>
+                </div>
+            </div>
 
-    @Html.LabelFor(x => x.AdditionalPreferences)
-    @Html.EditorFor(x => x.AdditionalPreferences)
+            <div class="toggle-pane-section">
+                <p>Times of the Day</p>
+                @foreach (var timeOfDay in Enum.GetValues(typeof(TimeOfDay)))
+                {
+                    @Toggle((TimeOfDay)timeOfDay)
+                }
+            </div>
 
-    <input type="radio" name="When" value="Never" id="Never" @IsChecked(Schedule.Never)/>
-    <label for="Never">No, I'm not ready yet.</label>
+            @Html.LabelFor(i => i.AdditionalPreferences)
+            <textarea name="AdditionalPreferences" rows="3">@Model.AdditionalPreferences</textarea>
+        </div>
+    </div>
 
-    <input type="submit" value="Submit"/>
-    @Html.ActionLink("Back", "Form", new { clientId = Request.Params["clientId"] })
+    <div class="fieldset">
+        @Toggle(Schedule.Never, "No, I'm not ready yet.")
+    </div>
+}
+
+@section FormButtons
+{
+    <input type="submit" form="ScheduleConsultationForm" value="Submit"/>
+    <a type="button" href="@Url.Action("AboutUs", new {clientId = Request.Params["clientId"]})"><span>Back</span></a>
 }

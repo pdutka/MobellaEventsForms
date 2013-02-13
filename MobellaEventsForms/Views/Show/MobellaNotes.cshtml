@@ -1,19 +1,29 @@
 ﻿@model MobellaEventsForms.ViewModels.MobellaNotesRequest
 
 @{
-    ViewBag.Title = "MobellaNotes";
     Layout = "~/Views/Shared/_FormsLayout.cshtml";
+    ViewBag.Title = "Mobella's Notes";
+    ViewBag.Step = 4;
 }
 
-<h2>Mobella's Notes</h2>
-
-<p>Any other exciting information?</p>
-
-@using (Html.BeginForm("MobellaNotes", "Show", new { clientId = Request.Params["clientId"] }))
+@section header
 {
-    @Html.LabelFor(i => i.AdditionalNotes)
-    @Html.EditorFor(i => i.AdditionalNotes)
+    @Html.Partial("_WizardHeader")
+}
 
-    <input type="submit" value="Submit"/>
-    @Html.ActionLink("Back", "ScheduleConsultation", new { clientId = Request.Params["clientId"] })
+@using (Html.BeginForm("MobellaNotes", "Show",
+    new { clientId = Request.Params["clientId"] },
+    FormMethod.Post,
+    new { id = "MobellaNotesForm" }))
+{
+    <div class="fieldset">
+        <label for="AdditionalNotes">What else did you learn about the happy couple?</label>
+        <textarea id="AdditionalNotes" name="AdditionalNotes" rows="8">@Model.AdditionalNotes</textarea>
+    </div>
+}
+
+@section FormButtons
+{
+    <input type="submit" form="MobellaNotesForm" value="Ok, done!"/>
+    <a type="button" href="@Url.Action("ScheduleConsultation", new { clientId = Request.Params["clientId"] })"><span>Back</span></a>
 }
